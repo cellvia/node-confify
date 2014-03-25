@@ -1,0 +1,57 @@
+{
+  "name": "node-configify",
+  "version": "0.0.2",
+  "description": "Simplified nconf for the browser.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cellvia/node-configify.git"
+  },
+  "keywords": [
+    "conf",
+    "nconf",
+    "configuration",
+    "browserify",
+    "browser"
+  ],
+  "author": "Brandon Selway",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cellvia/node-configify/issues"
+  },
+  "homepage": "https://github.com/cellvia/node-configify",
+  "devDependencies": {
+    "browserify": "~3.33.0",
+    "tape": "~2.12.0"
+  },
+  "browserify":{
+    "transform": "index.js"
+  },
+  "browser": {
+    "configify": "./browser.js"
+  },
+  "testling":{
+    "files": "test/browser/*.js",
+    "browsers": [
+      "ie/8..latest",
+      "firefox/21..latest",
+      "firefox/nightly",
+      "chrome/26..latest",
+      "chrome/canary",
+      "opera/12..latest",
+      "opera/next",
+      "safari/5.1..latest",
+      "ipad/6.0..latest",
+      "iphone/6.0..latest",
+      "android-browser/4.2..latest"
+    ]
+  },  
+  "dependencies": {
+    "through": "~2.3.4",
+    "falafel": "~0.3.1",
+    "escodegen": "~1.3.0"
+  }
+}
