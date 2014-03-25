@@ -28,8 +28,8 @@ console.log(c.test3)
 test2.js:
 ```javascript
 var c = require('configify');
-c("./test2.json");
-c("./test3.js")
+c(__dirname + "./test2.json");
+c(__dirname + "./test3.js")
 ```
 
 test2.json:
