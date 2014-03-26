@@ -1,2 +1,2 @@
-var c = require('configify');
+var c = require('../../');
 c({"test1": "../object/test"});

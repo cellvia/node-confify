@@ -1,39 +1,40 @@
 {
-  "name": "node-configify",
+  "name": "confify",
   "version": "0.0.2",
-  "description": "Simplified nconf for the browser.",
+  "description": "Simplified nconf. Works in the browser.",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cellvia/node-configify.git"
+    "url": "https://github.com/cellvia/node-confify.git"
   },
   "keywords": [
     "conf",
     "nconf",
     "configuration",
     "browserify",
-    "browser"
+    "browser",
+    "browserify-transform"
   ],
   "author": "Brandon Selway",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cellvia/node-configify/issues"
+    "url": "https://github.com/cellvia/node-confify/issues"
   },
-  "homepage": "https://github.com/cellvia/node-configify",
+  "homepage": "https://github.com/cellvia/node-confify",
   "devDependencies": {
     "browserify": "~3.33.0",
     "tape": "~2.12.0"
   },
-  "browserify":{
-    "transform": "index.js"
+  "browserify": {
+    "transform": "transform.js"
   },
   "browser": {
-    "configify": "./browser.js"
+    "confify": "./index.js"
   },
-  "testling":{
+  "testling": {
     "files": "test/browser/*.js",
     "browsers": [
       "ie/8..latest",
@@ -48,7 +49,7 @@
       "iphone/6.0..latest",
       "android-browser/4.2..latest"
     ]
-  },  
+  },
   "dependencies": {
     "through": "~2.3.4",
     "falafel": "~0.3.1",

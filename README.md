@@ -1,16 +1,16 @@
-# configify
+# confify
 
-Simplified [nconf](https://github.com/flatiron/nconf) for the browser.
+Simplified [nconf](https://github.com/flatiron/nconf). Works in the browser.
 
-[![browser support](http://ci.testling.com/cellvia/node-configify.png)](http://ci.testling.com/cellvia/node-configify)
+[![browser support](http://ci.testling.com/cellvia/node-confify.png)](http://ci.testling.com/cellvia/node-confify)
 
-[![build status](https://secure.travis-ci.org/cellvia/node-configify.png)](http://travis-ci.org/cellvia/node-configify)
+[![build status](https://secure.travis-ci.org/cellvia/node-confify.png)](http://travis-ci.org/cellvia/node-confify)
 
 
 ## Example
 
 ```javascript
-var c = require('configify');
+var c = require('confify');
 
 c({test1: "/path/to/test1"});
 
@@ -27,7 +27,7 @@ console.log(c.test3)
 
 test2.js:
 ```javascript
-var c = require('configify');
+var c = require('confify');
 c(__dirname + "./test2.json");
 c(__dirname + "./test3.js")
 ```
