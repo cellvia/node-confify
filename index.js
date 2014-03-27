@@ -18,10 +18,9 @@ var checkPack = function(pack){
 
 var res = findship.sync(path.dirname(__dirname), checkPack) || findship.sync(__dirname, checkPack)
 
-var config;
-if(typeof res.pack.confify === "string"){                    
+if( res && typeof res.pack.confify === "string"){                    
     config = require( path.join( path.dirname(res.path), res.pack.confify ) );
-}else if(typeof res.pack.confify === "object"){
+}else if(res && typeof res.pack.confify === "object"){
     config = res.pack.confify;                    
 }
 if(config) merge(browser, config);

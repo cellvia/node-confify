@@ -1,6 +1,6 @@
 {
   "name": "confify",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simplified nconf. Works in the browser.",
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,8 @@
     ]
   },
   "browser": {
-    "confify": "./browser.js"
+    "confify": "./browser.js",
+    "index.js": "./browser.js"
   },
   "testling": {
     "files": "test/browser/*.js",
