@@ -45,6 +45,9 @@ module.exports = {
 }
 ```
 
+## Caveats
+Dynamic assignment into browserified requires / pathnames will often not work.  This is a limitation of browserify itself.
+
 ## Test
 
 `npm test`
