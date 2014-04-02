@@ -1,6 +1,6 @@
 {
   "name": "confify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Simplified nconf. Works in the browser.",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,13 @@
     "url": "https://github.com/cellvia/node-confify/issues"
   },
   "homepage": "https://github.com/cellvia/node-confify",
+  }
+  "dependencies": {
+    "through": "~2.3.4",
+    "falafel": "~0.3.1",
+    "escodegen": "~1.3.0",
+    "mothership": "~0.3.0"
+  },
   "devDependencies": {
     "browserify": "~3.33.0",
     "tape": "~2.12.0"
@@ -53,11 +60,4 @@
       "iphone/6.0..latest",
       "android-browser/4.2..latest"
     ]
-  },
-  "dependencies": {
-    "through": "~2.3.4",
-    "falafel": "~0.3.1",
-    "escodegen": "~1.3.0",
-    "mothership": "git+http://github.com/cellvia/mothership.git"
-  }
 }
