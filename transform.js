@@ -39,7 +39,7 @@ module.exports = function (file) {
         findship(dirname, function(pack){
             return !!pack.confify
         }, function(err, res){
-            if(!err && !~searched.indexOf(res.path)){
+            if(!err && res && !~searched.indexOf(res.path)){
                 searched.push(res.path);
                 var config = {};
                 if(typeof res.pack.confify === "string"){
