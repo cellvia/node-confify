@@ -45,8 +45,25 @@ module.exports = {
 }
 ```
 
+## package.json
+
+You may include a confify field in your package.json of either an object or path to be required.  What is exported by this path will be your default conf within all files in that package.
+
+## Methods
+
+### confify( path, [options] )
+Path is either a filepath to be required, or an actual object.
+
+### confify.resetGlobals()
+(browserify only) In case you need to ensure all confify globals are reset to the package default, you may at any point declare confify.resetGlobals().  This helps avoid possible cross-contamination between packages being browserified or transformed under the same process (ex: testing)
+
+## Options
+
+### replace (default: true)
+(browserify only) When you add properties / data to confify and replace option is set to false, the data added will not be transformed in the source code, but instead will be determined at runtime.
+
 ## Caveats
-Dynamic assignment into browserified requires / pathnames will often not work.  This is a limitation of browserify itself.
+Dynamic assignment of paths into requires may not work, particularly if the option replace is set to false.  This is a limitation of browserify itself.
 
 ## Test
 

@@ -1,7 +1,7 @@
 {
   "name": "confify",
-  "version": "0.0.7",
-  "description": "Simplified nconf. Works in the browser.",
+  "version": "0.1.0",
+  "description": "Simplified nconf for the browser and the server.",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js"
@@ -18,7 +18,9 @@
     "browser",
     "browserify-transform"
   ],
-  "author": "Brandon Selway",
+  "author": {
+    "name": "Brandon Selway"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cellvia/node-confify/issues"

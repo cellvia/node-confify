@@ -5,6 +5,5 @@ function merge(a, b){
 }
 
 module.exports = function browser(srcObj){
-	if(!process.browser && typeof srcObj === "string") srcObj = require(srcObj);
     merge(browser, srcObj);
 };

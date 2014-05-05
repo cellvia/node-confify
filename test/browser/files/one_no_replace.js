@@ -1,4 +1,5 @@
 var c = require('confify');
+c.resetGlobals();
 c(__dirname + "/two.json", {replace: false});
 require("./two_no_replace.js");
 

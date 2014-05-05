@@ -7,7 +7,8 @@ var unparse = require('escodegen').generate;
 var findship = require('mothership');
 
 module.exports = function (file) {
-    var globalConf = {};
+    process.globalConf = process.globalConf || {};
+    var globalConf = process.globalConf;
     var searched = [];
     if (/\.json$/.test(file)) return through();
     var data = '';
@@ -17,47 +18,40 @@ module.exports = function (file) {
     
     var tr = through(write, end);
     return tr;
-
-    function containsUndefinedVariable (node) {
-        if (node.type === 'Identifier') {
-            if (vars.indexOf(node.name) === -1) {
-                return true;
-            }
-        }
-        else if (node.type === 'BinaryExpression') {
-            return containsUndefinedVariable(node.left)
-                || containsUndefinedVariable(node.right)
-            ;
-        }
-        else {
-            return false;
-        }
-    };
     
+    function mergePackageGlobals(){
+        var config = {};
+        var res = findship.sync(dirname, function(pack){
+            return !!pack.confify
+        });
+        if(res){
+            if(typeof res.pack.confify === "string"){
+                config = require( path.join( path.dirname(res.path), res.pack.confify ) );
+            }else if(typeof res.pack.confify === "object"){
+                config = res.pack.confify;                    
+            }
+            merge(globalConf, config);
+        }
+    }
+
+    function resetGlobals(){
+        process.globalConf = globalConf = {};
+        mergePackageGlobals();        
+    }
+
     function write (buf) { data += buf }
     function end () {
-        findship(dirname, function(pack){
-            return !!pack.confify
-        }, function(err, res){
-            if(!err && res && !~searched.indexOf(res.path)){
-                searched.push(res.path);
-                var config = {};
-                if(typeof res.pack.confify === "string"){
-                    config = require( path.join( path.dirname(res.path), res.pack.confify ) );
-                }else if(typeof res.pack.confify === "object"){
-                    config = res.pack.confify;                    
-                }
-                merge(globalConf, config);
-            }
-            try { var output = parse() }
-            catch (err) {
-                tr.emit('error', new Error(
-                    err.toString().replace('Error: ', '') + ' (' + file + ')')
-                );
-            }
-            
-            finish(output);
-        });
+
+        mergePackageGlobals();
+
+        try { var output = parse() }
+        catch (err) {
+            tr.emit('error', new Error(
+                err.toString().replace('Error: ', '') + ' (' + file + ')')
+            );
+        }
+
+        finish(output);
     }
     
     function finish (output) {
@@ -93,11 +87,10 @@ module.exports = function (file) {
                     if(typeof fillFrom !== "object") return tr.emit('error', "Configify: argument must be a valid filepath that evaluates to an object");
                     if( thisOpts.replace !== false )
                         fillFrom = merge(globalConf, fillFrom);
-                    node.update(node.callee.name+"("+JSON.stringify( merge(fillFrom, globalConf) )+")");                    
+                    node.update(node.callee.name+"("+JSON.stringify( merge(fillFrom, globalConf) )+")");  
                 }else if(args[0].type === "ObjectExpression"){
-                    if( thisOpts.replace !== false ){
+                    if( thisOpts.replace !== false )
                         merge(globalConf, eval( "("+unparse(args[0])+")" ) );
-                    }
                 }else{
                     return tr.emit('error', 'Configify: invalid argument type '+args[0].type);
                 } 
@@ -119,11 +112,30 @@ module.exports = function (file) {
                     if(node.type === "MemberExpression") node.update("");
                     node.object.update(JSON.stringify(last));
                 }
+            }else if(node.type === 'MemberExpression' && isConf(node.object) && node.property.name === "resetGlobals"){
+                resetGlobals();
+                node.parent.update("");
             }
             
         });
         return output;
     }
+
+    function containsUndefinedVariable (node) {
+        if (node.type === 'Identifier') {
+            if (vars.indexOf(node.name) === -1) {
+                return true;
+            }
+        }
+        else if (node.type === 'BinaryExpression') {
+            return containsUndefinedVariable(node.left)
+                || containsUndefinedVariable(node.right)
+            ;
+        }
+        else {
+            return false;
+        }
+    };
     
     function isConf (p) {
         if (!p) return false;

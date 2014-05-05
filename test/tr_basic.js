@@ -11,7 +11,6 @@ test('transform - output', function (t) {
     var b = browserify();
     b.add(__dirname + '/browser/files/one.js');    
     b.bundle(function (err, src) {
-        // console.log(src)
         if (err){ t.fail(err); t.fail(err); }
         var isTransformed = !(~src.indexOf("c.test.global") || ~src.indexOf("c.test2.data"))
         t.equal( isTransformed, true, "'c.test.global' and 'c.test2.data' must be transformed" );
@@ -27,7 +26,6 @@ test('transform - no replace', function (t) {
     b.add(__dirname + '/browser/files/one_no_replace.js');    
     b.bundle(function (err, src) {
         if (err) t.fail(err);
-        // console.log(src)
         t.equal( !!~src.indexOf("console.log( \"../global/test\" + c.test1 + c.test2.data );"), true, "proper transform" );
         vm.runInNewContext(src, { console: { log: log } });
     });
