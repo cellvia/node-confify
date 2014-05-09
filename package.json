@@ -47,7 +47,7 @@
     "index.js": "./browser.js"
   },
   "testling": {
-    "files": "test/browser/*.js",
+    "files": "test/browser/basic.js",
     "browsers": [
       "ie/8..latest",
       "firefox/21..latest",
